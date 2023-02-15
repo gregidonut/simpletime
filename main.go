@@ -3,12 +3,19 @@ package main
 import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/widget"
+	"os"
 	"time"
 )
 
 const WINDOW_TITLE = "Clock"
 
+func init() {
+	// set scale environment variable
+	os.Setenv("FYNE_SCALE", "3.5")
+}
+
 func main() {
+
 	a := app.New()
 	w := a.NewWindow(WINDOW_TITLE)
 
