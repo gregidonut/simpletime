@@ -2,6 +2,8 @@ package main
 
 import (
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"os"
 	"time"
@@ -23,7 +25,7 @@ func main() {
 
 	updatingTime(kitchenTime)
 
-	w.SetContent(kitchenTime)
+	w.SetContent(container.New(layout.NewVBoxLayout(), kitchenTime))
 
 	go func() {
 		for range time.Tick(1000 * time.Millisecond) {
