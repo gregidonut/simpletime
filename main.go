@@ -22,14 +22,23 @@ func main() {
 	w := a.NewWindow(WINDOW_TITLE)
 
 	kitchenTime := widget.NewLabel("")
-
 	updatingTime(kitchenTime)
+	kitchenTimeContainer := container.New(layout.NewCenterLayout(), kitchenTime)
 
-	w.SetContent(container.New(layout.NewVBoxLayout(), kitchenTime))
+	basicDate := widget.NewLabel("")
+	updatingDate(basicDate)
+
+	w.SetContent(container.New(layout.NewVBoxLayout(), kitchenTimeContainer, basicDate))
 
 	go func() {
 		for range time.Tick(1000 * time.Millisecond) {
 			updatingTime(kitchenTime)
+		}
+	}()
+
+	go func() {
+		for range time.Tick(1000 * time.Millisecond) {
+			updatingDate(basicDate)
 		}
 	}()
 
@@ -38,6 +47,13 @@ func main() {
 
 func updatingTime(clock *widget.Label) {
 	format := "3:04:05 PM"
+	formatted := time.Now().Format(format)
+
+	clock.SetText(formatted)
+}
+
+func updatingDate(clock *widget.Label) {
+	format := "Monday, January 02, 2006"
 	formatted := time.Now().Format(format)
 
 	clock.SetText(formatted)
